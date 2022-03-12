@@ -1,0 +1,30 @@
+{
+    "name": "refbw/uniform-simple-captcha",
+    "description": "Simple captcha guard for 'mzur/kirby-uniform' & Kirby v3",
+    "type": "kirby-plugin",
+    "version": "1.0.0",
+    "license": "MIT",
+    "author": {
+        "name": "Martin Folkers",
+        "email": "webmaster@refbw.de",
+        "homepage": "https://codeberg.org/S1SYPHOS",
+        "role": "Maintainer"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://codeberg.org/refbw/uniform-simple-captcha.git"
+    },
+    "require": {
+        "getkirby/composer-installer": "^1.1",
+        "mzur/kirby-uniform": "^5.0",
+        "gregwar/captcha": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Uniform\\Guards\\SimpleCaptchaGuard\\": "src/Guards/SimpleCaptcha.php"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
