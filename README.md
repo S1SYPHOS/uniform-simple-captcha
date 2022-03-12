@@ -45,10 +45,18 @@ You may use them in your template like so:
 
 ```php
 # Captcha image
+# Vanilla
 <?= simpleCaptcha() ?>
+
+# Custom attributes
+<?= simpleCaptcha(['class' => 'some-class', 'title' => 'solve me!' ]) ?>
 
 # Input field
 <?= simpleCaptchaField() ?>
+
+# Custom `id` (eg for use with a label)
+<label for="my-captcha">Not so fast!</label>
+<?= simpleCaptchaField('my-captcha', ['class' => 'some-class']) ?>
 ```
 
 

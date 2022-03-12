@@ -1,6 +1,8 @@
 <?php
 
 use Kirby\Cms\App;
+use Kirby\Toolkit\A;
+use Kirby\Toolkit\Html;
 use Kirby\Toolkit\I18n;
 use Uniform\Guards\SimpleCaptchaGuard;
 
@@ -11,9 +13,10 @@ if (!function_exists('simpleCaptcha')) {
     /**
      * Creates `img` element while generating the captcha
      *
+     * @param array $attributes Custom captcha image HTML attributes
      * @return string HTML `img` element
      */
-    function simpleCaptcha(): string
+    function simpleCaptcha(array $attributes = []): string
     {
         # Generate captcha
         $builder = new CaptchaBuilder;
@@ -23,7 +26,9 @@ if (!function_exists('simpleCaptcha')) {
         App::instance()->session()->set(SimpleCaptchaGuard::FLASH_KEY, $builder->getPhrase());
 
         # Create `img` element from captcha as data URI
-        return sprintf('<img src="%s">', $builder->inline());
+        return Html::img($builder->inline(), A::update([
+            'class' => 'simple-captcha',
+        ], $attributes));
     }
 }
 
@@ -32,15 +37,16 @@ if (!function_exists('simpleCaptchaField')) {
     /**
      * Creates `input` element for solving the generated captcha
      *
-     * @param string $name Form field `name`
-     * @param string $class Form field `class`
+     * @param string $id Form field `id`
+     * @param array $attributes Custom form field HTML attributes
      * @return string HTML `input` element
      */
-    function simpleCaptchaField(?string $name = null, ?string $class = null): string
+    function simpleCaptchaField(?string $id = null, array $attributes = []): string
     {
-        $name = $name ?? SimpleCaptchaGuard::FIELD_NAME;
-        $class = $class ?? 'local-captcha';
-
-        return sprintf('<input type="text" name="%s" class="%s">', $name, $class);
+        return Html::tag('input', '', A::update([
+            'id' => $id,
+            'name' => SimpleCaptchaGuard::FIELD_NAME,
+            'class' => 'simple-captcha-field',
+        ], $attributes));
     }
 }
