@@ -7,6 +7,7 @@ use Kirby\Toolkit\I18n;
 use Uniform\Guards\SimpleCaptchaGuard;
 
 use Gregwar\Captcha\CaptchaBuilder;
+use Gregwar\Captcha\PhraseBuilder;
 
 
 if (!function_exists('simpleCaptcha')) {
@@ -18,8 +19,31 @@ if (!function_exists('simpleCaptcha')) {
      */
     function simpleCaptcha(array $attributes = []): string
     {
+        # Build captcha phrase
+        # (1) Fetch options regarding captcha generation
+        $length = kirby()->option('simple-captcha.length', 5);
+        $charset = kirby()->option('simple-captcha.charset', 'abcdefghijklmnpqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+
+        # (2) Initialize phrase builder
+        $phrase = new PhraseBuilder($length, $charset);
+
         # Generate captcha
-        $builder = new CaptchaBuilder;
+        # (1) Initialize captcha builder
+        $builder = new CaptchaBuilder(null, $phrase);
+
+        # (2) Configure it
+        # (a) Font interpolation
+        $builder->setInterpolation(kirby()->option('simple-captcha.interpolation', true));
+
+        # (b) Background distortion
+        $builder->setDistortion(kirby()->option('simple-captcha.distortion', true));
+
+        # (c) Background colors
+        if ($colors = kirby()->option('simple-captcha.bg-colors', null)) {
+            $builder->setBackgroundColor($colors[0], $colors[1], $colors[2]);
+        }
+
+        # (3) Build captcha image
         $builder->build();
 
         # Store answer

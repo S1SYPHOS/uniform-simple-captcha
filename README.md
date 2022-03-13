@@ -78,6 +78,19 @@ if ($kirby->request()->is('POST')) {
 ```
 
 
+### Configuration
+
+You may change certain options from your `config.php` globally (`'simple-captcha.optionName'`):
+
+| Option            | Type   | Default          | Description                    |
+| ----------------- | ------ | ---------------- | ------------------------------ |
+| `'length'`        | int    | `5`              | Number of characters           |
+| `'charset'`       | string | a-z, A-Z, 0-9    | Allowed characters (as string) |
+| `'interpolation'` | bool   | `true`           | Enables font interpolation     |
+| `'distortion'`    | bool   | `true`           | Enables background distortion  |
+| `'bg-colors'`     | array  | random           | RGB values, eg `[0, 255, 0]`   |
+
+
 ## License
 
 This plugin is licensed under the [MIT License](LICENSE), but **using Kirby in production** requires you to [buy a license](https://getkirby.com/buy).
