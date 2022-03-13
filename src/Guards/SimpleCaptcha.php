@@ -3,7 +3,6 @@
 namespace Uniform\Guards;
 
 use Kirby\Cms\App;
-use Kirby\Toolkit\I18n;
 
 
 /**
@@ -37,7 +36,7 @@ class SimpleCaptchaGuard extends Guard
      * @param string $string Input string
      * @return string Formatted string
      */
-    public static function niceize(string $string): string
+    private static function niceize(string $string): string
     {
         return strtr(strtolower($string), '01', 'ol');
     }
@@ -57,7 +56,7 @@ class SimpleCaptchaGuard extends Guard
         # If empty ..
         if (empty($input)) {
             # .. fail early
-            $this->reject(I18n::translate('local-captcha-empty'), self::FIELD_NAME);
+            $this->reject(t('local-captcha-empty'), self::FIELD_NAME);
         }
 
         # Retrieve expected result
@@ -66,7 +65,7 @@ class SimpleCaptchaGuard extends Guard
         # If no match found ..
         if ($result === null || static::niceize($input) != static::niceize($result)) {
             # .. fail ultimately
-            $this->reject(I18n::translate('local-captcha-invalid'), $field);
+            $this->reject(t('local-captcha-invalid'), $field);
         }
 
         # .. otherwise, remove field from form data

@@ -1,10 +1,10 @@
 <?php
 
+use Uniform\Guards\SimpleCaptchaGuard;
+
 use Kirby\Cms\App;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Html;
-use Kirby\Toolkit\I18n;
-use Uniform\Guards\SimpleCaptchaGuard;
 
 use Gregwar\Captcha\CaptchaBuilder;
 use Gregwar\Captcha\PhraseBuilder;
@@ -21,8 +21,8 @@ if (!function_exists('simpleCaptcha')) {
     {
         # Build captcha phrase
         # (1) Fetch options regarding captcha generation
-        $length = kirby()->option('simple-captcha.length', 5);
-        $charset = kirby()->option('simple-captcha.charset', 'abcdefghijklmnpqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        $length = option('simple-captcha.length', 5);
+        $charset = option('simple-captcha.charset', 'abcdefghijklmnpqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
         # (2) Initialize phrase builder
         $phrase = new PhraseBuilder($length, $charset);
@@ -33,13 +33,13 @@ if (!function_exists('simpleCaptcha')) {
 
         # (2) Configure it
         # (a) Font interpolation
-        $builder->setInterpolation(kirby()->option('simple-captcha.interpolation', true));
+        $builder->setInterpolation(option('simple-captcha.interpolation', true));
 
         # (b) Background distortion
-        $builder->setDistortion(kirby()->option('simple-captcha.distortion', true));
+        $builder->setDistortion(option('simple-captcha.distortion', true));
 
         # (c) Background colors
-        if ($colors = kirby()->option('simple-captcha.bg-colors', null)) {
+        if ($colors = option('simple-captcha.bg-colors', null)) {
             $builder->setBackgroundColor($colors[0], $colors[1], $colors[2]);
         }
 
