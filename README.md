@@ -82,13 +82,31 @@ if ($kirby->request()->is('POST')) {
 
 You may change certain options from your `config.php` globally (`'simple-captcha.optionName'`):
 
-| Option            | Type   | Default          | Description                    |
-| ----------------- | ------ | ---------------- | ------------------------------ |
-| `'length'`        | int    | `5`              | Number of characters           |
-| `'charset'`       | string | a-z, A-Z, 0-9    | Allowed characters (as string) |
-| `'interpolation'` | bool   | `true`           | Enables font interpolation     |
-| `'distortion'`    | bool   | `true`           | Enables background distortion  |
-| `'bg-colors'`     | array  | random           | RGB values, eg `[0, 255, 0]`   |
+| Option                 | Type         | Default       | Description                                                |
+| ---------------------- | ------------ | ------------- | ---------------------------------------------------------- |
+| `'length'`             | int          | `5`           | Number of characters                                       |
+| `'charset'`            | string       | a-z, A-Z, 0-9 | Allowed characters (as string)                             |
+| `'fonts'`              | string|array | see `fonts`   | Path(s) to font file(s)                                    |
+| `'distort'`            | bool         | `true`        | Whether to distort the image                               |
+| `'interpolate'`        | bool         | `true`        | Whether to interpolate the image                           |
+| `'maxLinesBehind'`     | int          | random        | Maximum number of lines behind the captcha phrase          |
+| `'maxLinesFront'`      | int          | random        | Maximum number of lines in front of the captcha phrase     |
+| `'maxAngle'`           | int          | `8`           | Maximum character angle                                    |
+| `'maxOffset'`          | int          | `5`           | Maximum character offset                                   |
+| `'bgColor'`            | array|string | random        | Background color, RGB, HEX or `'transparent'`              |
+| `'lineColor'`          | array|string | random        | Line color, RGB or HEX                                     |
+| `'textColor'`          | array|string | random        | Text color, RGB or HEX                                     |
+| `'bgImage'`            | array|string | none          | Path to background image                                   |
+| `'applyEffects'`       | bool         | `true`        | Whether to apply (any) effects                             |
+| `'applyNoise'`         | bool         | `true`        | Whether to apply background noise (using random letters)   |
+| `'noiseFactor'`        | int          | `2`           | Multiples of phrase length to be used for noise generation |
+| `'applyPostEffects'`   | bool         | `true`        | Whether to apply post effects                              |
+| `'applyScatterEffect'` | bool         | `true`        | Whether to enable scatter effect                           |
+| `'randomizeFonts'`     | bool         | `true`        | Whether to use random font for each symbol                 |
+
+**Note:**
+- RGB = array with RGB values, eg `[0, 255, 0]`
+- HEX = hexadecimal notation, eg `'#fafafa'`
 
 
 ## License

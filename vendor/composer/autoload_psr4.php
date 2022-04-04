@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Uniform\\Guards\\SimpleCaptchaGuard\\' => array($baseDir . '/src/Guards/SimpleCaptcha.php'),
     'Uniform\\' => array($vendorDir . '/mzur/kirby-uniform/src'),
-    'Symfony\\Component\\Finder\\' => array($vendorDir . '/symfony/finder'),
+    'SimpleCaptcha\\' => array($vendorDir . '/s1syphos/php-simple-captcha/src'),
+    'Kirby\\' => array($vendorDir . '/getkirby/composer-installer/src'),
     'Jevets\\Kirby\\' => array($vendorDir . '/mzur/kirby-flash/src', $vendorDir . '/mzur/kirby-form/src'),
-    'Gregwar\\' => array($vendorDir . '/gregwar/captcha/src/Gregwar'),
 );

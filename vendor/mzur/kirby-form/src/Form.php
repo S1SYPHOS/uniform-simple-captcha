@@ -116,15 +116,21 @@ class Form implements FormInterface
      * for the key will be returned. Otherwise, all
      * data will be returned.
      *
-     * @param  string  optional  $key
+     * @param string $key
+     * @param string $value
+     * @param bool $escape
      * @return mixed|array
      */
-    public function data($key = '', $value = '')
+    public function data($key = '', $value = '', $escape = true)
     {
         if ($key === '') {
-            return $this->data;
+            return $escape ? array_map([$this, 'encodeField'], $this->data) : $this->data;
         } elseif ($value === '') {
-            return isset($this->data[$key]) ? $this->data[$key] : '';
+            if (! isset($this->data[$key])) {
+                return '';
+            }
+
+            return $escape ? $this->encodeField($this->data[$key]) : $this->data[$key];
         }
 
         $this->data[$key] = $this->trimWhitespace($value);
@@ -140,7 +146,6 @@ class Form implements FormInterface
     {
         $data = $this->flash->get(self::FLASH_KEY_DATA, []);
 
-        // Encode HTML entities for output
         return isset($data[$key]) ? $this->encodeField($data[$key]) : '';
     }
 
@@ -154,7 +159,7 @@ class Form implements FormInterface
     {
         $app = App::instance();
 
-        $token = $app->request()->body()->get(self::CSRF_FIELD);
+        $token = $app->request()->csrf() ?? $app->request()->body()->get(self::CSRF_FIELD);
         if (empty($token) || csrf($token) !== true) {
             if ($app->option('debug', false) === true) {
                 throw new TokenMismatchException('The CSRF token was invalid.');
@@ -330,7 +335,7 @@ class Form implements FormInterface
 
         foreach ($this->fields as $field => $options) {
             if ($options['flash']) {
-                $data[$field] = $this->data($field);
+                $data[$field] = $this->data($field, '', false);
             }
         }
 
@@ -389,7 +394,7 @@ class Form implements FormInterface
     {
         return is_array($data)
             ? array_map([$this, 'decodeField'], $data)
-            : htmlspecialchars_decode($data);
+            : htmlspecialchars_decode($data ?? '');
     }
 
     /**
@@ -403,6 +408,6 @@ class Form implements FormInterface
     {
         return is_array($data)
             ? array_map([$this, 'trimWhitespace'], $data)
-            : trim($data);
+            : trim($data ?? '');
     }
 }

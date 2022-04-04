@@ -6,8 +6,7 @@ use Kirby\Cms\App;
 use Kirby\Toolkit\A;
 use Kirby\Toolkit\Html;
 
-use Gregwar\Captcha\CaptchaBuilder;
-use Gregwar\Captcha\PhraseBuilder;
+use SimpleCaptcha\Builder;
 
 
 if (!function_exists('simpleCaptcha')) {
@@ -25,29 +24,74 @@ if (!function_exists('simpleCaptcha')) {
         $charset = option('simple-captcha.charset', 'abcdefghijklmnpqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 
         # (2) Initialize phrase builder
-        $phrase = new PhraseBuilder($length, $charset);
+        $phrase = Builder::buildPhrase($length, $charset);
 
         # Generate captcha
         # (1) Initialize captcha builder
-        $builder = new CaptchaBuilder(null, $phrase);
+        $builder = Builder::create($phrase);
 
         # (2) Configure it
-        # (a) Font interpolation
-        $builder->setInterpolation(option('simple-captcha.interpolation', true));
+        # (a) Font files
+        if ($fonts = option('simple-captcha.fonts', null)) {
+            $builder->fonts = $fonts;
+        }
 
         # (b) Background distortion
-        $builder->setDistortion(option('simple-captcha.distortion', true));
+        $builder->distort = option('simple-captcha.distort', true);
 
-        # (c) Background colors
-        if ($colors = option('simple-captcha.bg-colors', null)) {
-            $builder->setBackgroundColor($colors[0], $colors[1], $colors[2]);
+        # (c) Font interpolation
+        $builder->interpolate = option('simple-captcha.interpolate', true);
+
+        # (d) Maximum lines behind & in front captcha text
+        $maxLinesBehind = option('simple-captcha.maxLinesBehind', null);
+
+        if (is_int($maxLinesBehind)) {
+            $builder->maxLinesBehind = $maxLinesBehind;
         }
+
+        $maxLinesFront = option('simple-captcha.maxLinesFront', null);
+
+        if (is_int($maxLinesFront)) {
+            $builder->maxLinesFront = $maxLinesFront;
+        }
+
+        # (e) Angle & offset of captcha text
+        $builder->maxAngle = option('simple-captcha.maxAngle', 8);
+        $builder->maxOffset = option('simple-captcha.maxOffset', 5);
+
+        # (f) Various colors
+        if ($bgColor = option('simple-captcha.bgColor', null)) {
+            $builder->bgColor = $bgColor;
+        }
+
+        if ($lineColor = option('simple-captcha.lineColor', null)) {
+            $builder->lineColor = $lineColor;
+        }
+
+        if ($textColor = option('simple-captcha.textColor', null)) {
+            $builder->textColor = $textColor;
+        }
+
+        # (g) Background image
+        if ($bgImage = option('simple-captcha.bgImage', null)) {
+            $builder->bgImage = $bgImage;
+        }
+
+        # (h) Effects
+        $builder->applyEffects = option('simple-captcha.applyEffects', true);
+        $builder->applyNoise = option('simple-captcha.applyNoise', true);
+        $builder->noiseFactor = option('simple-captcha.noiseFactor', 2);
+        $builder->applyPostEffects = option('simple-captcha.applyPostEffects', true);
+        $builder->applyScatterEffect = option('simple-captcha.applyScatterEffect', true);
+
+        # (i) Whether each captcha character should be picked at random
+        $builder->randomizeFonts = option('simple-captcha.randomizeFonts', true);
 
         # (3) Build captcha image
         $builder->build();
 
         # Store answer
-        App::instance()->session()->set(SimpleCaptchaGuard::FLASH_KEY, $builder->getPhrase());
+        App::instance()->session()->set(SimpleCaptchaGuard::FLASH_KEY, $builder->phrase);
 
         # Create `img` element from captcha as data URI
         return Html::img($builder->inline(), A::update([

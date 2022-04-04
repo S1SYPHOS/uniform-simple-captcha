@@ -25,8 +25,8 @@ class InstalledVersions
     private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0',
-    'version' => '1.0.0.0',
+    'pretty_version' => '1.1.0',
+    'version' => '1.1.0.0',
     'aliases' => 
     array (
     ),
@@ -35,14 +35,14 @@ class InstalledVersions
   ),
   'versions' => 
   array (
-    'gregwar/captcha' => 
+    'getkirby/composer-installer' => 
     array (
-      'pretty_version' => 'v1.1.9',
-      'version' => '1.1.9.0',
+      'pretty_version' => '1.2.1',
+      'version' => '1.2.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4bb668e6b40e3205a020ca5ee4ca8cff8b8780c5',
+      'reference' => 'c98ece30bfba45be7ce457e1102d1b169d922f3d',
     ),
     'mzur/kirby-flash' => 
     array (
@@ -55,39 +55,39 @@ class InstalledVersions
     ),
     'mzur/kirby-form' => 
     array (
-      'pretty_version' => 'v2.1.3',
-      'version' => '2.1.3.0',
+      'pretty_version' => 'v3.1.0',
+      'version' => '3.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bac3dfe0bccbe4ca068daea05ddc07dea76e478f',
+      'reference' => '38ce34bdf51079e099d71131aafbc1a543bd7ea4',
     ),
     'mzur/kirby-uniform' => 
     array (
-      'pretty_version' => 'v4.3.3',
-      'version' => '4.3.3.0',
+      'pretty_version' => 'v5.0.2',
+      'version' => '5.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2d6f0515f76fcf05b09121e11f90b8d9953a085c',
+      'reference' => 'd65087e686585a10b387bca9d1c064f4f8102298',
     ),
     'refbw/uniform-simple-captcha' => 
     array (
-      'pretty_version' => '1.0.0',
-      'version' => '1.0.0.0',
+      'pretty_version' => '1.1.0',
+      'version' => '1.1.0.0',
       'aliases' => 
       array (
       ),
       'reference' => NULL,
     ),
-    'symfony/finder' => 
+    's1syphos/php-simple-captcha' => 
     array (
-      'pretty_version' => 'v6.0.3',
-      'version' => '6.0.3.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8661b74dbabc23223f38c9b99d3f8ade71170430',
+      'reference' => 'b0624c1f8395e38dcafb5ec201b1c277031d1a84',
     ),
   ),
 );
