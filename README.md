@@ -1,6 +1,6 @@
 # Simple captcha
 
-This plugin implements a simple captcha guard for Martin Zurowietz' [`kirby-uniform`](https://github.com/mzur/kirby-uniform) plugin for Kirby v3 - dependency-free & GDPR-friendly, powered by [`Gregwar/Captcha`](https://github.com/Gregwar/Captcha).
+This plugin implements a simple captcha guard for Martin Zurowietz' [`kirby-uniform`](https://github.com/mzur/kirby-uniform) plugin for Kirby v3 - dependency-free & GDPR-friendly, powered by [`php-simple-captcha`](https://codeberg.org/S1SYPHOS/php-simple-captcha), a fork of [`Gregwar/Captcha`](https://github.com/Gregwar/Captcha).
 
 **Note:** The generated image uses a data URI as its `src` attribute, everything else is handled by Kirby's [session object](https://getkirby.com/docs/reference/objects/cms/app/session).
 
