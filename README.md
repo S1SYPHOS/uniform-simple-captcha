@@ -86,6 +86,8 @@ You may change certain options from your `config.php` globally (`'simple-captcha
 | ---------------------- | ------------ | ------------- | ---------------------------------------------------------- |
 | `'length'`             | int          | `5`           | Number of characters                                       |
 | `'charset'`            | string       | a-z, A-Z, 0-9 | Allowed characters (as string)                             |
+| `'width'`              | int          | `150`         | Captcha image `width`                                      |
+| `'height'`             | int          | `40`          | Captcha image `height`                                     |
 | `'fonts'`              | string/array | see `fonts`   | Path(s) to font file(s)                                    |
 | `'distort'`            | bool         | `true`        | Whether to distort the image                               |
 | `'interpolate'`        | bool         | `true`        | Whether to interpolate the image                           |

@@ -88,7 +88,12 @@ if (!function_exists('simpleCaptcha')) {
         $builder->randomizeFonts = option('simple-captcha.randomizeFonts', true);
 
         # (3) Build captcha image
-        $builder->build();
+        # (a) Determine image width & height
+        $width = option('simple-captcha.width', 150);
+        $height = option('simple-captcha.height', 40);
+
+        # (b) Party time
+        $builder->build($width, $height);
 
         # Store answer
         App::instance()->session()->set(SimpleCaptchaGuard::FLASH_KEY, $builder->phrase);
