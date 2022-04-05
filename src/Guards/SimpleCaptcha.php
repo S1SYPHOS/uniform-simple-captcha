@@ -4,6 +4,8 @@ namespace Uniform\Guards;
 
 use Kirby\Cms\App;
 
+use SimpleCaptcha\Builder;
+
 
 /**
  * Class SimpleCaptchaGuard
@@ -29,20 +31,6 @@ class SimpleCaptchaGuard extends Guard
 
 
     /**
-     * 'Niceize' string
-     *
-     * See https://github.com/Gregwar/Captcha/blob/master/src/Gregwar/Captcha/PhraseBuilder.php#L65
-     *
-     * @param string $string Input string
-     * @return string Formatted string
-     */
-    private static function niceize(string $string): string
-    {
-        return strtr(strtolower($string), '01', 'ol');
-    }
-
-
-    /**
      * Checks whether field for inlined captcha was solved correctly
      *
      * @return void
@@ -63,7 +51,7 @@ class SimpleCaptchaGuard extends Guard
         $result = App::instance()->session()->get(self::FLASH_KEY, null);
 
         # If no match found ..
-        if ($result === null || static::niceize($input) != static::niceize($result)) {
+        if ($result === null || !Builder::create()->compare($input, $result)) {
             # .. fail ultimately
             $this->reject(t('local-captcha-invalid'), $field);
         }
