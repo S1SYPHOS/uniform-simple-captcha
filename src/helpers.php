@@ -74,6 +74,12 @@ if (!function_exists('simpleCaptcha')) {
 
         # (g) Background image
         if ($bgImage = option('simple-captcha.bgImage', null)) {
+            # If file object was passed ..
+            if (is_a($bgImage, 'Kirby\Cms\File')) {
+                # .. use its filepath
+                $bgImage = $bgImage->root();
+            }
+
             $builder->bgImage = $bgImage;
         }
 
