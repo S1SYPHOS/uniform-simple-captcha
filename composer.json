@@ -2,7 +2,7 @@
     "name": "refbw/uniform-simple-captcha",
     "description": "Simple captcha guard for 'mzur/kirby-uniform' & Kirby v3",
     "type": "kirby-plugin",
-    "version": "2.1.0",
+    "version": "2.1.1",
     "license": "MIT",
     "author": {
         "name": "Martin Folkers",
